@@ -1,0 +1,21 @@
+function drawCA( aname, coords )
+%UNTITLED16 Summary of this function goes here
+%   Detailed explanation goes here
+
+anameCA = int32(aname);
+anameCAfound = zeros(length(aname),4);
+anameCAfound(:,1) = (anameCA(:,1) == int32(' '));
+anameCAfound(:,2) = (anameCA(:,2) == int32('C'));
+anameCAfound(:,3) = (anameCA(:,3) == int32('A'));
+anameCAfound(:,4) = (anameCA(:,4) == int32(' '));
+indexaname = find(sum(anameCAfound')==4);
+
+CAcoords =  coords( indexaname , :);
+
+figure
+plot3(CAcoords(:,1),CAcoords(:,2), CAcoords(:,3));
+
+
+
+
+end

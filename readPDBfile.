@@ -1,0 +1,39 @@
+function [ anum, aname, resno, coords ] = readPDBfile( infile );
+%UNTITLED15 Summary of this function goes here
+%   Detailed explanation goes here
+
+fid = fopen( infile , 'rt' );
+    if fid == -1
+        error('Not a valid file');
+    end
+
+anum = [];
+aname = [];
+resno = [];
+coordslong = [];
+
+textline = fgetl(fid);
+while ischar(textline); 
+    if textline(1:6) == ('ATOM  '); %no spaces at start. two at end.
+        anum = [anum; textline(7:11)];
+        aname = [aname; textline(13:16)];
+        resno = [resno; textline(23:26)];
+        coordslong = [coordslong; textline(31:38); textline(39:46); textline(47:54)];
+           
+    end
+    textline = fgetl(fid);
+    
+
+end
+coordsnum =str2num(coordslong);
+coords = zeros((length(coordsnum)/3),3);
+coords(:,1) = coordsnum(1:3:end);
+coords(:,2) = coordsnum(2:3:end);
+coords(:,3) = coordsnum(3:3:end);
+
+anum = int64(str2num(anum));
+resno = int64(str2num(resno));
+
+
+
+end
